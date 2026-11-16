@@ -1,0 +1,87 @@
+.opening {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: center;
+  gap: 4%;
+  padding: clamp(70px, 8vw, 150px) 6%;
+  min-height: min(750px, 85svh);
+  overflow: hidden;
+  background: #f0eddf;
+}
+.opening-copy { position: relative; z-index: 1; }
+.opening h1 {
+  margin: 32px 0 20px;
+  font: 600 clamp(65px, 7.8vw, 150px)/.88 var(--sans);
+  letter-spacing: -.08em;
+}
+.opening h1 em { font: italic 1.16em/.94 var(--serif); letter-spacing: -.045em; }
+.opening p, .visit-steps p, .check-body p { max-width: 37ch; font-size: clamp(16px, 1.4vw, 22px); line-height: 1.5; }
+.opening-link { display: inline-flex; align-items: center; gap: 24px; border-bottom: 1px solid; padding: 8px 0; margin-top: 16px; font-size: 14px; font-weight: 600; }
+.opening-link span { font-size: 22px; }
+.album { position: relative; width: 92%; margin-inline: auto; aspect-ratio: 1.05; }
+.print { position: absolute; inset: 0; margin: 0; background: #fffaf0; padding: 2.8% 2.8% 9%; box-shadow: 0 5px 18px #20332224; }
+.print img { width: 100%; height: 100%; object-fit: cover; }
+.print-back { transform: translate(1%, -4%) rotate(-8deg); }
+.print-middle { transform: translate(1%, -1%) rotate(8deg); }
+.print-front { transform: rotate(-2deg); }
+.print figcaption { display: flex; justify-content: space-between; align-items: center; height: 10%; font: italic clamp(14px, 1.5vw, 23px) var(--serif); }
+.print figcaption span { font: 600 10px var(--sans); letter-spacing: .05em; }
+.content h2 { font: 400 clamp(76px, 8.7vw, 145px)/.89 var(--serif); letter-spacing: -.035em; margin: 0; }
+.visit { background: #1e3025; color: var(--paper); padding: 76px 6% 0; }
+.visit h2 em, .visit-steps span { color: var(--lime); }
+.visit-layout { display: grid; grid-template-columns: 1.05fr 1fr; gap: 9%; margin-top: 35px; }
+.visit-photos { position: sticky; top: 108px; height: min(57svh, 510px); margin-bottom: 70px; overflow: hidden; }
+.visit-photos img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.065); transition: opacity .65s, transform 1.3s; }
+.visit-photos .selected { opacity: 1; transform: scale(1); }
+.visit-steps { margin: 0; padding: 0; list-style: none; }
+.visit-steps li { display: flex; flex-direction: column; justify-content: center; min-height: 52svh; padding: 40px 0; border-top: 1px solid #ffffff46; }
+.visit-steps span { font: 600 11px var(--sans); letter-spacing: .12em; }
+.visit-steps h3 { font-size: clamp(38px, 4.7vw, 75px); line-height: .98; }
+.visit-steps p { color: #e1e7d9; }
+.check-in { padding: clamp(70px, 9vw, 140px) 6%; background: #e0eaaa; }
+.check-in h2 { font-size: clamp(55px, 8.8vw, 145px); margin: 32px 0; }
+.check-in h2 em { color: #43572b; }
+.check-body { display: flex; justify-content: space-between; align-items: center; gap: 28px; border-top: 1px solid #879269; padding-top: 16px; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .opening { view-timeline-name: --opening; }
+    .print-front, .print-middle, .print-back { animation: fan linear both; animation-timeline: --opening; animation-range: exit 0% exit 95%; }
+    .print-front { --spread: -13%; --tilt: -13deg; }
+    .print-middle { --spread: 17%; --tilt: 16deg; }
+    .print-back { --spread: 2%; --tilt: -4deg; }
+    .check-in h2, .visit-intro h2 { animation: unfold linear both; animation-timeline: view(); animation-range: entry 0% cover 35%; }
+    @keyframes fan { to { translate: var(--spread) 6%; rotate: var(--tilt); } }
+    @keyframes unfold { from { clip-path: inset(0 0 96% 0); translate: 0 30px; } to { clip-path: inset(0); translate: 0 0; } }
+  }
+}
+@media (max-width: 700px) {
+  .opening { grid-template-columns: 1fr; gap: 40px; padding: 42px 6% 48px; }
+  .opening h1 { margin-top: 20px; }
+  .album { width: 76%; max-width: 380px; aspect-ratio: 1.3; }
+  .content h2 { font-size: 76px; }
+  .visit { padding: 48px 5% 10px; }
+  .visit-layout { display: block; margin-top: 24px; }
+  .visit-photos { top: 68px; z-index: 1; height: min(30svh, 225px); margin: 0; background: #1e3025; }
+  .visit-steps li { min-height: 50svh; }
+  .check-body { display: block; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .visit-photos { position: relative; top: 0; }
+  .visit-steps li { min-height: auto; padding: 32px 0; }
+}
+
+footer .credit {
+  margin: 0;
+  font-size: 13px;
+}
+@media (max-width: 700px) {
+  footer {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  footer .credit {
+    order: 3;
+    width: 100%;
+  }
+}
